@@ -75,7 +75,9 @@ impl LocalizedConfig {
                     continue;
                 }
 
-                std::env::set_var(key, env_option.resolve_value(&self.workspace)?.as_ref())
+                unsafe {
+                    std::env::set_var(key, env_option.resolve_value(&self.workspace)?.as_ref())
+                }
             }
         }
 
@@ -196,14 +198,17 @@ CARGO_SUBCOMMAND_TEST_ENV_FORCED = { value = "forced", force = true }"#;
     );
 
     // Set some environment values
-    std::env::set_var(
-        "CARGO_SUBCOMMAND_TEST_ENV_NOT_FORCED",
-        "not forced process environment value",
-    );
-    std::env::set_var(
-        "CARGO_SUBCOMMAND_TEST_ENV_FORCED",
-        "forced process environment value",
-    );
+    // All such calls is safe xbuild works in single thread
+    unsafe {
+        std::env::set_var(
+            "CARGO_SUBCOMMAND_TEST_ENV_NOT_FORCED",
+            "not forced process environment value",
+        );
+        std::env::set_var(
+            "CARGO_SUBCOMMAND_TEST_ENV_FORCED",
+            "forced process environment value",
+        );
+    }
 
     config.set_env_vars().unwrap();
 

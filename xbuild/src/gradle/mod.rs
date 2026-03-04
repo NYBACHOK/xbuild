@@ -1,4 +1,4 @@
-use crate::{task, BuildEnv, Format, Opt};
+use crate::{BuildEnv, Format, Opt, task};
 use anyhow::{Context, Result};
 use apk::Target;
 use std::path::{Path, PathBuf};
@@ -25,9 +25,11 @@ pub fn prepare(env: &BuildEnv) -> Result<()> {
             std::fs::write(wry.join("MainActivity.kt"), main_activity)?;
         }
         let (package, name) = package.rsplit_once('.').unwrap();
-        std::env::set_var("WRY_ANDROID_REVERSED_DOMAIN", package);
-        std::env::set_var("WRY_ANDROID_APP_NAME_SNAKE_CASE", name);
-        std::env::set_var("WRY_ANDROID_KOTLIN_FILES_OUT_DIR", wry);
+        unsafe {
+            std::env::set_var("WRY_ANDROID_REVERSED_DOMAIN", package);
+            std::env::set_var("WRY_ANDROID_APP_NAME_SNAKE_CASE", name);
+            std::env::set_var("WRY_ANDROID_KOTLIN_FILES_OUT_DIR", wry);
+        }
     }
     Ok(())
 }

@@ -6,7 +6,7 @@ members = [
     "msix",
     "mvn",
     "pri",
-    # "xbuild",
+    "xbuild",
     "xcommon",
 ]
 resolver = "2"
@@ -14,22 +14,25 @@ resolver = "2"
 [workspace.dependencies]
 # local
 xcommon = { version = "0.3.0", path = "xcommon" }
-msix = { version = "0.4.0", path = "../msix" }
-mvn = { version = "0.2.0", path = "../mvn" }
-apk = { version = "0.4.0", path = "../apk" }
-appbundle = { version = "0.3.0", path = "../appbundle" }
-appimage = { version = "0.4.0", path = "../appimage" }
+msix = { version = "0.4.0", path = "msix" }
+mvn = { version = "0.2.0", path = "mvn" }
+apk = { version = "0.4.0", path = "apk" }
+appbundle = { version = "0.3.0", path = "appbundle" }
+appimage = { version = "0.4.0", path = "appimage" }
 
 # serialization
 serde = { version = "1.0.151", features = ["derive"] }
 quick-xml = { version = "0.39", features = ["serialize"] }
 roxmltree = "0.21"
+toml = "0.9"
+serde_yaml = "0.9.16"
 
 # logging 
 tracing = "0.1"
 tracing-log = "0.2"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 log = "0.4"
+log-panics = "2.1"
 
 # rasn
 rasn = "0.28"
@@ -41,21 +44,40 @@ plist = "1.3"
 apple-codesign = "0.29"
 app-store-connect = "0.7"
 x509-certificate = "0.24"
+apple-dmg = "0.5"
+
+# android
+android-sdkmanager-rs = "0.7"
 
 # crypto
 rsa = "0.9"
 pem = "3.0"
 pkcs8 = "0.10"
 
+# archives
+zip = { version = "8.2", default-features = false }
+zstd = "0.12"
+tar = "0.4"
+
 # other
 anyhow = "1.0"
 byteorder = "1.4"
 sha2 = { version = "0.10", features = ["oid"] }
 dunce = "1"
-zip = { version = "8.2", default-features = false }
 image = { version = "0.25", default-features = false }
 icns = "0.4"
 base64 = "0.22"
 mime_guess = "2.0"
 der-parser = "10.0"
-pubgrub =  "0.2.1"
+pubgrub =  "0.2"
+clap = { version = "4.5", features = ["derive"] }
+console = "0.16"
+dirs = "6"
+futures = "0.3"
+glob = "0.3"
+indicatif = "0.17"
+reqwest = { version = "0.13", default-features = false }
+path-slash = "0.2"
+shlex = "1"
+symlink = "0.1"
+which = "8.0"

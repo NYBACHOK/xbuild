@@ -1,7 +1,7 @@
 [package]
 name = "pri"
 version = "0.2.0"
-edition = "2021"
+edition = "2024"
 description = "Library for creating and parsing pri files."
 repository = "https://github.com/rust-mobile/xbuild"
 license = "Apache-2.0 OR MIT"
