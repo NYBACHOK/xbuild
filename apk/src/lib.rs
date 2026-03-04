@@ -210,7 +210,7 @@ pub struct EntryPoint {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use tracing_subscriber::{fmt::format::FmtSpan, EnvFilter};
+    use tracing_subscriber::{EnvFilter, fmt::format::FmtSpan};
 
     pub fn init_logger() {
         tracing_log::LogTracer::init().ok();

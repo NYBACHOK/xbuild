@@ -3,11 +3,58 @@ members = [
     "apk",
     "appbundle",
     "appimage",
-    "mvn",
     "msix",
+    "mvn",
     "pri",
-    "xbuild",
+    # "xbuild",
     "xcommon",
 ]
-default-members = ["xbuild"]
-exclude = ["examples"]
+
+[workspace.dependencies]
+# local
+xcommon = { version = "0.3.0", path = "xcommon" }
+msix = { version = "0.4.0", path = "../msix" }
+mvn = { version = "0.2.0", path = "../mvn" }
+apk = { version = "0.4.0", path = "../apk" }
+appbundle = { version = "0.3.0", path = "../appbundle" }
+appimage = { version = "0.4.0", path = "../appimage" }
+
+# serialization
+serde = { version = "1.0.151", features = ["derive"] }
+quick-xml = { version = "0.39", features = ["serialize"] }
+roxmltree = "0.21"
+
+# logging 
+tracing = "0.1"
+tracing-log = "0.2"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+log = "0.4"
+
+# rasn
+rasn = "0.28"
+rasn-pkix = "0.28"
+rasn-cms = "0.28"
+
+# apple
+plist = "1.3"
+apple-codesign = "0.29"
+app-store-connect = "0.7"
+x509-certificate = "0.24"
+
+# crypto
+rsa = "0.9"
+pem = "3.0"
+pkcs8 = "0.10"
+
+# other
+anyhow = "1.0"
+byteorder = "1.4"
+sha2 = { version = "0.10", features = ["oid"] }
+dunce = "1"
+zip = { version = "8.2", default-features = false }
+image = { version = "0.25", default-features = false }
+icns = "0.4"
+base64 = "0.22"
+mime_guess = "2.0"
+der-parser = "10.0"
+pubgrub =  "0.2.1"

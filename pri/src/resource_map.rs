@@ -222,6 +222,7 @@ pub enum ResourceValueType {
 }
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
+#[allow(dead_code)]
 pub struct CandidateSet {
     pub resource_map_item: u32,
     pub decision_index: u16,
@@ -229,6 +230,7 @@ pub struct CandidateSet {
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+#[allow(dead_code)]
 pub struct Candidate {
     pub qualifier_set: u16,
     pub ty: ResourceValueType,

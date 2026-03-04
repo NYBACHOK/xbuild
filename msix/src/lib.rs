@@ -157,11 +157,11 @@ impl Msix {
 }
 
 fn to_xml<T: Serialize>(xml: &T, standalone: bool) -> Vec<u8> {
-    let mut buf = vec![];
+    let mut buf = String::new();
     let standalone = if standalone { "yes" } else { "no" };
-    buf.extend_from_slice(
-        format!(r#"<?xml version="1.0" encoding="UTF-8" standalone="{standalone}"?>"#).as_bytes(),
-    );
-    quick_xml::se::to_writer(&mut buf, xml).unwrap();
-    buf
+    buf.push_str(&format!(
+        r#"<?xml version="1.0" encoding="UTF-8" standalone="{standalone}"?>"#
+    ));
+    quick_xml::se::to_writer(&mut buf, xml).expect("failed to write xml");
+    buf.into_bytes()
 }

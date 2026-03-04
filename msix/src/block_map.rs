@@ -1,4 +1,5 @@
 use anyhow::Result;
+use base64::Engine;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::io::Read;
@@ -20,7 +21,7 @@ impl Default for BlockMapBuilder {
 }
 
 impl BlockMapBuilder {
-    pub fn add(&mut self, f: &mut ZipFile) -> Result<()> {
+    pub fn add<R: std::io::Read>(&mut self, f: &mut ZipFile<R>) -> Result<()> {
         let name = Path::new(f.name())
             .iter()
             .map(|seg| seg.to_str().unwrap())
@@ -114,7 +115,7 @@ pub struct Block {
 impl Block {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
-            hash: base64::encode(Sha256::digest(bytes)),
+            hash: base64::prelude::BASE64_STANDARD.encode(Sha256::digest(bytes)),
             size: None,
         }
     }

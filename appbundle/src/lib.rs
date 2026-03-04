@@ -1,10 +1,10 @@
 use anyhow::{Context, Result};
+use app_store_connect::notary_api::SubmissionResponseStatus;
 use apple_codesign::dmg::DmgSigner;
-use apple_codesign::notarization::{
-    notary_api::SubmissionResponseStatus, NotarizationUpload, Notarizer,
-};
 use apple_codesign::stapling::Stapler;
-use apple_codesign::{BundleSigner, CodeSignatureFlags, SettingsScope, SigningSettings};
+use apple_codesign::{
+    BundleSigner, CodeSignatureFlags, NotarizationUpload, Notarizer, SettingsScope, SigningSettings,
+};
 use icns::{IconFamily, Image};
 use pkcs8::EncodePrivateKey;
 use plist::Value;
@@ -99,12 +99,10 @@ impl AppBundle {
             }
         } else {
             let mut icns = IconFamily::new();
-            let mut buf = vec![];
             for size in sizes {
-                buf.clear();
-                let mut cursor = Cursor::new(&mut buf);
+                let mut cursor = Cursor::new(Vec::new());
                 scaler.write(&mut cursor, ScalerOpts::new(*size))?;
-                let image = Image::read_png(&*buf)?;
+                let image = Image::read_png(cursor)?;
                 icns.add_icon(&image)?;
             }
             let path = self.resource_dir().join("AppIcon.icns");
