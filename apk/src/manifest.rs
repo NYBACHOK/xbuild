@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize, Serializer};
 #[serde(rename = "manifest")]
 #[serde(deny_unknown_fields)]
 pub struct AndroidManifest {
-    #[serde(rename(serialize = "xmlns:android"))]
+    #[serde(rename = "@xmlns:android")]
     #[serde(default = "default_namespace")]
     ns_android: String,
     pub package: Option<String>,
