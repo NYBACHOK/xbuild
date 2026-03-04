@@ -9,6 +9,7 @@ members = [
     # "xbuild",
     "xcommon",
 ]
+resolver = "2"
 
 [workspace.dependencies]
 # local
