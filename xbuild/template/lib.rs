@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 #[cfg(target_os = "android")]
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn start_app() {
     android_logger::init_once(
         android_logger::Config::default()
@@ -23,7 +23,9 @@ fn _start_app() {
 #[cfg(not(target_family = "wasm"))]
 pub fn main() {
     #[cfg(any(target_os = "android", target_os = "ios"))]
-    std::env::set_var("RUST_BACKTRACE", "1");
+    unsafe {
+        std::env::set_var("RUST_BACKTRACE", "1");
+    }
     dioxus_desktop::launch(app);
 }
 
