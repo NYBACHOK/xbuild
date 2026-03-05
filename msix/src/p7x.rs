@@ -4,7 +4,7 @@ use anyhow::Result;
 use byteorder::{BigEndian, ReadBytesExt};
 use rasn::prelude::*;
 use rasn_cms::pkcs7_compat::{EncapsulatedContentInfo, SignedData};
-use rasn_cms::{ContentInfo, CONTENT_SIGNED_DATA};
+use rasn_cms::{CONTENT_SIGNED_DATA, ContentInfo};
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
@@ -165,7 +165,7 @@ impl Default for SpcSipInfoContent {
 mod tests {
     use super::*;
     use rsa::RsaPrivateKey;
-    use rsa::{pkcs8::DecodePrivateKey, Pkcs1v15Sign};
+    use rsa::{Pkcs1v15Sign, pkcs8::DecodePrivateKey};
     use sha2::{Digest, Sha256};
 
     const HASHES: Digests = Digests {

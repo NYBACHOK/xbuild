@@ -12,7 +12,7 @@ pub use artifact::{Artifact, CrateType};
 
 use self::config::LocalizedConfig;
 use self::manifest::Manifest;
-use crate::{task, CompileTarget, Opt};
+use crate::{CompileTarget, Opt, task};
 
 pub struct Cargo {
     package: String,

@@ -2,7 +2,7 @@ use crate::cargo::CrateType;
 use crate::download::DownloadManager;
 use crate::task::TaskRunner;
 use crate::{BuildEnv, Format, Opt, Platform};
-use anyhow::{ensure, Context, Result};
+use anyhow::{Context, Result, ensure};
 use apk::Apk;
 use appbundle::AppBundle;
 use appimage::AppImage;

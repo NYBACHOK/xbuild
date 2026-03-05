@@ -1,4 +1,4 @@
-use crate::{task, BuildEnv, Platform};
+use crate::{BuildEnv, Platform, task};
 use anyhow::Result;
 use indicatif::{ProgressBar, ProgressDrawTarget, ProgressStyle};
 use mvn::Download;

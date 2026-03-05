@@ -1,5 +1,5 @@
 use anyhow::{Context, Result};
-use console::{style, Term};
+use console::{Term, style};
 use std::process::Command;
 use std::time::Instant;
 

@@ -1,5 +1,5 @@
-use anyhow::{ensure, Result};
-use byteorder::{ReadBytesExt, WriteBytesExt, LE};
+use anyhow::{Result, ensure};
+use byteorder::{LE, ReadBytesExt, WriteBytesExt};
 use std::io::{Read, Write};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

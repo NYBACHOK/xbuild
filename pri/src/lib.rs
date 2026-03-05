@@ -1,5 +1,5 @@
-use anyhow::{bail, ensure, Result};
-use byteorder::{ReadBytesExt, WriteBytesExt, LE};
+use anyhow::{Result, bail, ensure};
+use byteorder::{LE, ReadBytesExt, WriteBytesExt};
 use std::fs::File;
 use std::io::{BufReader, BufWriter, Read, Seek, SeekFrom, Write};
 use std::path::Path;

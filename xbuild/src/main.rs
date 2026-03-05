@@ -2,7 +2,7 @@ use anyhow::Result;
 use app_store_connect::certs_api::CertificateType;
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
-use xbuild::{cargo::config::LocalizedConfig, command, BuildArgs, BuildEnv};
+use xbuild::{BuildArgs, BuildEnv, cargo::config::LocalizedConfig, command};
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -12,7 +12,7 @@ struct Args {
 }
 
 fn main() -> Result<()> {
-    use tracing_subscriber::{fmt::format::FmtSpan, EnvFilter};
+    use tracing_subscriber::{EnvFilter, fmt::format::FmtSpan};
     tracing_log::LogTracer::init().ok();
     let env = std::env::var("XBUILD_LOG").unwrap_or_else(|_| "error".into());
     let subscriber = tracing_subscriber::FmtSubscriber::builder()

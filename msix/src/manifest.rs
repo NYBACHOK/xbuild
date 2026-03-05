@@ -246,7 +246,10 @@ mod tests {
             description: Some("".into()),
         };
         let xml = quick_xml::se::to_string(&props).unwrap();
-        assert_eq!(xml, "<Properties><DisplayName></DisplayName><PublisherDisplayName></PublisherDisplayName><Logo></Logo><Description></Description></Properties>");
+        assert_eq!(
+            xml,
+            "<Properties><DisplayName></DisplayName><PublisherDisplayName></PublisherDisplayName><Logo></Logo><Description></Description></Properties>"
+        );
     }
 
     #[test]

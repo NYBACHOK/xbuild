@@ -1,8 +1,8 @@
 use crate::cargo::manifest::{Inheritable, Manifest, Package};
 use crate::{Opt, Platform};
 use anyhow::{Context, Result};
-use apk::manifest::{Activity, AndroidManifest, IntentFilter, MetaData};
 use apk::VersionCode;
+use apk::manifest::{Activity, AndroidManifest, IntentFilter, MetaData};
 use appbundle::InfoPlist;
 use msix::AppxManifest;
 use serde::Deserialize;
