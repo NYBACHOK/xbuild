@@ -428,12 +428,12 @@ impl Iterator for Logcat {
                 Ok(0) => return None,
                 Ok(_) => {
                     let line = self.line.trim();
-                    if let Some((date, line)) = line.split_once(' ') {
-                        if let Some((time, line)) = line.split_once(' ') {
-                            if date.len() == 5 && time.len() == 12 {
-                                return Some(line.to_string());
-                            }
-                        }
+                    if let Some((date, line)) = line.split_once(' ')
+                        && let Some((time, line)) = line.split_once(' ')
+                        && date.len() == 5
+                        && time.len() == 12
+                    {
+                        return Some(line.to_string());
                     }
                     return Some(self.line.clone());
                 }

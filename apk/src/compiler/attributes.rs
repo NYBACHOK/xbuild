@@ -61,15 +61,15 @@ impl<'a> StringPoolBuilder<'a> {
     }
 
     pub fn add_attribute(&mut self, attr: Attribute<'a, 'a>) -> Result<()> {
-        if let Some(ns) = attr.namespace() {
-            if ns == "http://schemas.android.com/apk/res/android" {
-                let entry = self.table.entry_by_ref(Ref::attr(attr.name()))?;
-                self.attributes.insert(entry.id().into(), attr.name());
-                if entry.attribute_type() == Some(ResAttributeType::String) {
-                    self.strings.insert(attr.value());
-                }
-                return Ok(());
+        if let Some(ns) = attr.namespace()
+            && ns == "http://schemas.android.com/apk/res/android"
+        {
+            let entry = self.table.entry_by_ref(Ref::attr(attr.name()))?;
+            self.attributes.insert(entry.id().into(), attr.name());
+            if entry.attribute_type() == Some(ResAttributeType::String) {
+                self.strings.insert(attr.value());
             }
+            return Ok(());
         }
         if attr.name() == "platformBuildVersionCode" || attr.name() == "platformBuildVersionName" {
             self.strings.insert(attr.name());

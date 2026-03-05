@@ -68,13 +68,13 @@ Alternatively, to keep it out of the workspace, add an empty `[workspace]` table
         // Any package in the workspace can be used if `-p` is used
         Some(name) => {
             // Check if the workspace manifest also contains a [package]
-            if let Some(package) = &workspace_manifest.package {
-                if package.name == name {
-                    return Ok((
-                        workspace_manifest_path.to_owned(),
-                        workspace_manifest.clone(),
-                    ));
-                }
+            if let Some(package) = &workspace_manifest.package
+                && package.name == name
+            {
+                return Ok((
+                    workspace_manifest_path.to_owned(),
+                    workspace_manifest.clone(),
+                ));
             }
 
             // Check all member packages inside the workspace
@@ -139,12 +139,11 @@ pub fn find_workspace(potential_root: &Path) -> Result<Option<(PathBuf, Manifest
 ///
 /// [`target-dir`]: https://doc.rust-lang.org/cargo/reference/config.html#buildtarget-dir
 pub fn get_target_dir_name(config: Option<&Config>) -> Result<String> {
-    if let Some(config) = config {
-        if let Some(build) = config.build.as_ref() {
-            if let Some(target_dir) = &build.target_dir {
-                return Ok(target_dir.clone());
-            }
-        }
+    if let Some(config) = config
+        && let Some(build) = config.build.as_ref()
+        && let Some(target_dir) = &build.target_dir
+    {
+        return Ok(target_dir.clone());
     }
     Ok("target".to_string())
 }

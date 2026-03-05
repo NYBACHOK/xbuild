@@ -178,10 +178,10 @@ impl<D: Download> DependencyProvider<Package, Version> for Maven<D> {
         let mut selected: Option<(_, Vec<_>)> = None;
         for (p, r) in potential_packages {
             let versions = self.versions(p.borrow(), r.borrow());
-            if let Some((_, v)) = &selected {
-                if v.len() < versions.len() {
-                    continue;
-                }
+            if let Some((_, v)) = &selected
+                && v.len() < versions.len()
+            {
+                continue;
             }
             let early_exit = versions.len() < 2;
             selected = Some((p, versions));

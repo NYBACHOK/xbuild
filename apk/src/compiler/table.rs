@@ -90,14 +90,14 @@ impl<'a> Package<'a> {
 
     fn lookup_type(&self, id: u8) -> Result<Type<'a>> {
         for chunk in self.chunks {
-            if let Chunk::TableType(header, _offsets, entries) = chunk {
-                if header.id == id {
-                    return Ok(Type {
-                        package: self.id,
-                        id,
-                        entries,
-                    });
-                }
+            if let Chunk::TableType(header, _offsets, entries) = chunk
+                && header.id == id
+            {
+                return Ok(Type {
+                    package: self.id,
+                    id,
+                    entries,
+                });
             }
         }
         anyhow::bail!("failed to locate type {}", id);
@@ -206,10 +206,10 @@ impl Table {
     fn lookup_package_id(&self, name: Option<&str>) -> Result<u8> {
         if let Some(name) = name {
             for package in &self.packages {
-                if let Chunk::TablePackage(header, _) = package {
-                    if header.name == name {
-                        return Ok(header.id as u8);
-                    }
+                if let Chunk::TablePackage(header, _) = package
+                    && header.name == name
+                {
+                    return Ok(header.id as u8);
                 }
             }
             anyhow::bail!("failed to locate package {}", name);
@@ -220,10 +220,10 @@ impl Table {
 
     fn lookup_package(&self, id: u8) -> Result<Package<'_>> {
         for package in &self.packages {
-            if let Chunk::TablePackage(header, chunks) = package {
-                if header.id == id as u32 {
-                    return Package::new(id, chunks);
-                }
+            if let Chunk::TablePackage(header, chunks) = package
+                && header.id == id as u32
+            {
+                return Package::new(id, chunks);
             }
         }
         anyhow::bail!("failed to locate package {}", id);

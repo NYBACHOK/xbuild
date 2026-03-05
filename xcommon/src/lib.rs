@@ -160,12 +160,12 @@ impl Signer {
     pub fn new(pem: &str) -> Result<Self> {
         let pem = pem::parse_many(pem)?;
         let key = if let Some(key) = pem.iter().find(|pem| pem.tag() == "PRIVATE KEY") {
-            RsaPrivateKey::from_pkcs8_der(&key.contents())?
+            RsaPrivateKey::from_pkcs8_der(key.contents())?
         } else {
             anyhow::bail!("no private key found");
         };
         let cert = if let Some(cert) = pem.iter().find(|pem| pem.tag() == "CERTIFICATE") {
-            rasn::der::decode::<Certificate>(&cert.contents())
+            rasn::der::decode::<Certificate>(cert.contents())
                 .map_err(|err| anyhow::anyhow!("{}", err))?
         } else {
             anyhow::bail!("no certificate found");
@@ -445,10 +445,10 @@ pub fn extract_zip(archive: &Path, directory: &Path) -> Result<()> {
         if file.name().ends_with('/') {
             std::fs::create_dir_all(&outpath)?;
         } else {
-            if let Some(p) = outpath.parent() {
-                if !p.exists() {
-                    std::fs::create_dir_all(p)?;
-                }
+            if let Some(p) = outpath.parent()
+                && !p.exists()
+            {
+                std::fs::create_dir_all(p)?;
             }
             if let Some(target) = get_symlink_source(&mut file)? {
                 symlink(&target, &outpath)?;

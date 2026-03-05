@@ -37,7 +37,7 @@ pub fn build_pkcs7(signer: &Signer, encap_content_info: EncapsulatedContentInfo)
         version: 1.into(),
         sid: SignerIdentifier::IssuerAndSerialNumber(IssuerAndSerialNumber {
             issuer: cert.tbs_certificate.issuer.clone(),
-            serial_number: cert.tbs_certificate.serial_number.clone().into(),
+            serial_number: cert.tbs_certificate.serial_number.clone(),
         }),
         digest_algorithm: digest_algorithm.clone(),
         signed_attrs: Some({
@@ -61,7 +61,7 @@ pub fn build_pkcs7(signer: &Signer, encap_content_info: EncapsulatedContentInfo)
                 },
             });
             signed_attrs.insert(Attribute {
-                r#type: spc_sp_opus_info_objid().into(),
+                r#type: spc_sp_opus_info_objid(),
                 values: Default::default(),
             });
             signed_attrs
